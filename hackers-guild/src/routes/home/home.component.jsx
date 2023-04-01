@@ -5,6 +5,9 @@ export const Home = () => {
     return (
         <div className='home-container'>
             <Banner />
+            <div className='submissions' >
+                <SearchAppBar />
+            </div>
         </div>
     )
 }

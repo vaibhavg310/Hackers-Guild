@@ -5,19 +5,76 @@
   padding: 20px;
   background-color: #003145;
   justify-content: space-around;
+  color: white;
+  
 
     .banner-info{
         width: 70%;
         height: 100%;
+        padding-left:60px ;
         
+        .banner-content{
+            padding: 0 0 30px 0;
+            max-height: 20%;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar{
+                display: none;
+            }
+        }
+
+        .banner-title{
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            max-height: 80%;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar{
+                display: none;
+            }
+
+        }
+
+    
+        .upload-button{
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            border: 0px solid white;
+            border-radius: 9px;
+            background-color: green;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+
+            &:hover{
+                background-color: white;
+                color: #003145;
+            }
+        }
     }
     
-    .banner-image{
+    .image-container{
         width: 30%;
         height: 100%;
         
         background-size: cover;
         background-position: center;
+       
+        .bulb-logo{
+            width: 80%;
+            height: 100%;
+            margin: 0, auto;
+           object-fit: cover;
+        }
+       
     }
+   
   
 }
