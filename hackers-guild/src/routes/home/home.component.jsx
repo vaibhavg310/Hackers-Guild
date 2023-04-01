@@ -1,5 +1,6 @@
 import './home.styles.scss';
 import Banner from '../../components/banner/banner.component';
+import SearchAppBar from '../../components/navbar/navbar.component';
 
 export const Home = () => {
     return (
