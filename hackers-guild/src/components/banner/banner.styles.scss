@@ -1,0 +1,23 @@
+.banner-container{
+  display: flex;
+  height: 35vh;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #003145;
+  justify-content: space-around;
+
+    .banner-info{
+        width: 70%;
+        height: 100%;
+        
+    }
+    
+    .banner-image{
+        width: 30%;
+        height: 100%;
+        
+        background-size: cover;
+        background-position: center;
+    }
+  
+}
