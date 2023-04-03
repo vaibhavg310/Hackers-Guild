@@ -1,0 +1,128 @@
+ .detailed-card-banner{
+        
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color:#003145;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 100px 150px;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        color: white;
+       
+        .detailed-card-details{
+
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+
+            .detailed-card-image-title{
+                display: flex;
+
+                .detailed-card-image{
+                    height:100px;
+                    width:100px;
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                        border-radius: 10px;
+                    
+                    }
+                }
+
+                .detailed-card-title{
+                    padding: 10px 0px 10px 30px;
+                }
+
+            }
+
+            .detailed-card-tags{
+                display: flex;
+                align-items: center;
+                gap: 20px;
+
+                .line {
+                    height: 20px;
+                    width: 1px;
+                    background-color: white;
+                    opacity: 0.5;
+                }
+
+                .detailed-card-time{
+                    background-color: rgba(255, 255, 255, 0.3);
+                    padding: 5px 10px 5px 10px;
+                    border-radius: 15px;
+                }
+            }
+
+        }
+        .detailed-card-editlink{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            button{
+                // background-color:#003145;
+                background: none;
+                color: inherit;
+                border: 1px solid white;
+                border-radius: 7px;
+                padding:10px 15px 5px 15px;
+                font: inherit;
+                cursor: pointer;
+                outline: inherit;
+            }
+        }
+        
+    }
+
+    .detailed-card-info{
+        display: flex;
+
+        .detailed-card-description{
+            width:50% ;
+            padding:25px 20px 20px 150px;
+            font-weight: 250;
+            h1{
+                font-weight: 250;
+                margin: 20px;
+            }
+        }
+
+        .detailed-card-hackathon{
+            width:50% ;
+            padding:25px 20px 0px 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-size: small;
+            
+
+            h3{
+                font-weight: 250;
+                margin: 20px 0px 0px 0px;
+            }
+
+            h2 {
+                margin: 0;
+            }
+
+            button{
+                background: none;
+                color: inherit;
+                border: 1px solid black;
+                border-radius: 7px;
+                width:150px;
+                padding: 10px 0px 10px 0px;
+
+            }
+        
+        }
+    }
+   
