@@ -15,7 +15,15 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
-import MultiActionAreaCard from '../submission-card/submission-card.component';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+import SubmissionList from '../submission-list/submission-list.component';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectSubmissionList } from '../../store/submission/submission.selector';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,23 +69,72 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
    
-    const [value, setValue] = React.useState('1');
+    const [value, setValue] = useState('1');
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
 
+   
+
+      const submissionList = useSelector(selectSubmissionList);
+
+      const [searchField, setSearchField] = useState(''); // [value, setvalue]
+      
+      const filteredSubmissionList = submissionList.filter((submission) => submission.title.toLowerCase().includes(searchField));
+    
+      console.log(searchField);
+    
+      const onSearchChange = (event) => {
+                
+        const searchFieldString = event.target.value.toLocaleLowerCase();
+        setSearchField(searchFieldString);
+     
+      };
+      
+      const timeDifference = (hackathonStartDate) => {
+        const uploadTime = new Date(hackathonStartDate);
+        const currentTime = new Date();
+        const timeDiff = currentTime - uploadTime;
+        return timeDiff;
+      }
+
+      const [sortOrder, setSortOrder] = useState('ascending');
+
+      const handleChange1 = (event) => {
+        setSortOrder(event.target.value);
+      };
+
+      const ascendingHandler = (filteredSubmissionList) => {
+        const ascendingSubmissionList = filteredSubmissionList.sort((a, b) => timeDifference(a.hackathonStartDate) - timeDifference(b.hackathonStartDate));
+        return ascendingSubmissionList;
+       }
+      const descendingHandler = (filteredSubmissionList) => { 
+        const descendingSubmissionList = filteredSubmissionList.sort((a, b) =>timeDifference( b.hackathonStartDate) - timeDifference(a.hackathonStartDate));
+        return descendingSubmissionList;
+      }
+
+      let sortedSubmissionList = [];
+      if(sortOrder == "ascending") {
+        sortedSubmissionList = ascendingHandler(filteredSubmissionList);
+      }
+      else if(sortOrder == "descending") {
+        sortedSubmissionList = descendingHandler(filteredSubmissionList);
+      }
+
+
 
     return (
-
+<div style={{margin:"40px"}}>
         <TabContext value={value}>
-            <div style={{display: 'flex', justifyContent: 'space-between', margin: "10px 10px 0 10px"}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', margin: "10px 10px 0 10px", padding:"20px"}}>
             <TabList onChange={handleChange} aria-label="lab API tabs example">
               <Tab label="All Submissions" value="1" />
               <Tab label="Favourite Submissions" value="2" />
               
             </TabList>
 
+            <div style={{display: 'flex', margin:"0px 0px 0px 0px"}}>
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -85,12 +142,33 @@ export default function SearchAppBar() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                onChange={onSearchChange}
                 />
             </Search>
+
+            <FormControl fullWidth style={{width:"150px"}}>
+              <InputLabel id="demo-simple-select-label">Sort Order</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={sortOrder}
+                label="sortOrder"
+                onChange={handleChange1}
+              >
+
+
+                <MenuItem value={'descending'} >oldest</MenuItem>
+                <MenuItem value={'ascending'}>newest</MenuItem>
+                
+              </Select>
+            </FormControl>
             </div>
-          <TabPanel value="1"><MultiActionAreaCard/></TabPanel>
-          <TabPanel value="2">Favourite Submissions</TabPanel>
+
+            </div>
+          <TabPanel value="1"><SubmissionList submissionList={sortedSubmissionList}/></TabPanel>
+          <TabPanel value="2"><SubmissionList favorite submissionList={sortedSubmissionList}/></TabPanel>
           
                 </TabContext>
+      </div>
   );
 }

@@ -1,0 +1,3 @@
+export const SUBMISSION_ACTION_TYPES = {
+    SET_SUBMISSION_LIST: 'submission/SET_SUBMISSION_LIST',
+}
