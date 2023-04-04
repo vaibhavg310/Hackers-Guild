@@ -83,7 +83,7 @@ export default function SearchAppBar() {
       
       const filteredSubmissionList = submissionList.filter((submission) => submission.title.toLowerCase().includes(searchField));
     
-      console.log(searchField);
+      // console.log(searchField);
     
       const onSearchChange = (event) => {
                 

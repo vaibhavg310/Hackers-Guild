@@ -2,7 +2,7 @@ import './banner.styles.scss';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';    
 import { ReactComponent as Bulb } from '../../assets/bulb.svg';
-
+import { UploadSubmissionForm } from '../upload-submission-form/upload-submission-form-component';
 
 export const Banner = () => {
     return (

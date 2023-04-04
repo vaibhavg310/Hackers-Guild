@@ -11,3 +11,8 @@ export const selectFavouriteSubmissionList = createSelector(
     [selectSubmissionList],
     submissionList => submissionList.filter(submission => submission.isFavourite)
 );
+ 
+export const selectSubmissionById = (submissionId) => createSelector(
+    [selectSubmissionList],
+    submissionList => submissionList.find(submission => submission.id === Number(submissionId)) 
+);

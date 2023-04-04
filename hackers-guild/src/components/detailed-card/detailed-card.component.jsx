@@ -3,9 +3,40 @@ import { AiOutlineStar, AiTwotoneCalendar ,AiFillGithub,AiFillDelete } from 'rea
 import {FiExternalLink } from 'react-icons/fi';
 import {FaEdit} from 'react-icons/fa';
 import {useSelector} from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { selectSubmissionById } from '../../store/submission/submission.selector';
+import { useNavigate } from 'react-router-dom';
 
 
-const DetailedCard = ({submission}) => {
+export const checkImage = (image) => {
+    if (typeof image !== 'string') {
+        const url = URL.createObjectURL(image);
+        return url;
+    }
+    return image;
+
+  }
+
+const DetailedCard = () => {
+
+    const navigate = useNavigate();
+
+    const {id} = useParams();
+    const submission = useSelector(selectSubmissionById(id));
+
+
+ 
+
+
+    const checkHTTPS = (link) => {
+        if (link.includes('https://')) 
+            return link;
+        
+        else 
+            return `https://${link}`;
+        
+    }
+    
     return (
         <div className = "body">
 
@@ -14,16 +45,18 @@ const DetailedCard = ({submission}) => {
                     <div className='detailed-card-details'>
                         <div className = 'detailed-card-image-title'>
                                 <div className='detailed-card-image'>
-                                    {/* <img src={submission.coverImage} alt='submission' /> */}
-                                    <img src='https://images.unsplash.com/photo-1679678691256-fa3ce50c2159?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60' alt='submission' />
+                                    <img src={checkImage(submission.coverImage)} alt='submission' />
+                                    
                                 </div>
                                 <div className='detailed-card-title'>
-                                        {/* <h1>{submission.title}</h1> */}
-                                        <h1>Submission Title</h1>
+                                        <h1>{submission.title}</h1>
+                                        
                                 </div>
                         </div>
                         <div className='detailed-card-short-info'>
-                            <p>Built with GPt-3, Ract nad flask plractice interviews with AI and are your next Interview</p>
+                            <p>
+                                {submission.description}
+                            </p>
                         </div>
 
                         <div className='detailed-card-tags'>
@@ -32,7 +65,7 @@ const DetailedCard = ({submission}) => {
                             </span>
                             <span className='line' />
                             <span className='detailed-card-time'>
-                                <AiTwotoneCalendar /> <span>12 march</span>
+                                <AiTwotoneCalendar /> <span>{submission.hackathonStartDate}</span>
                             </span>
                         </div>
                     </div>
@@ -48,16 +81,16 @@ const DetailedCard = ({submission}) => {
             <div className="detailed-card-info">
                     <div className='detailed-card-description'>
                         <h1>Description</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        <p>{submission.summary}</p>
                     </div>
                     <div className='detailed-card-hackathon'>
-                        <h3>hackathon</h3>
+                        <h3>{submission.hackathonName}</h3>
                         <h2> Prestige Interview Challenge</h2>
 
                     <div>
                             <AiTwotoneCalendar /> 24 Feb 2023 - 24 March 2023
                     </div>
-                    <button><AiFillGithub/> Github</button>
+                    <a href={checkHTTPS(submission.githubSubmissionLink)}><button ><AiFillGithub/> Github</button></a>
                     <button><FiExternalLink/> Other Link</button>
 
                         

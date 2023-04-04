@@ -2,9 +2,10 @@ import './submission-list.styles.scss';
 import SubmissionCard from '../submission-card/submission-card.component';
 import {useSelector} from 'react-redux';
 
-import { selectSubmissionList } from '../../store/submission/submission.selector';
+
 
 const SubmissionList = ({favorite, submissionList}) => {
+    
     
    if (favorite) {
         return (
@@ -18,9 +19,6 @@ const SubmissionList = ({favorite, submissionList}) => {
         )
    }
 
-   
-
-    console.log(submissionList);
     return (
 
             <div className='submission-list-container'>

@@ -4,12 +4,12 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-
+import { useNavigate } from 'react-router-dom';
+import {checkImage} from '../detailed-card/detailed-card.component';
 
 export const SubmissionCard = ({submission}) => {
 
   const {title, description, coverImage, hackathonStartDate} = submission;
-
 
   const timeSinceUpload = (hackathonStartDate) => {
     const uploadTime = new Date(hackathonStartDate);
@@ -48,15 +48,16 @@ export const SubmissionCard = ({submission}) => {
     }
   }
    
+  const navigate = useNavigate();
 
   const time = timeSinceUpload(hackathonStartDate);
   return (
     <Card sx={{ maxWidth:"400px", padding:"10px", minWidth:"400px"  }}>
-      <CardActionArea>
+      <CardActionArea onClick={() =>navigate(`/submissions/${submission.id}`) }>
         
         <div style={{display: 'flex', alignItems: 'center',justifyContent:'space-between'}}>
             <div>
-                <img src={coverImage} alt="InterviewMe"
+                <img src={checkImage(coverImage)} alt="InterviewMe"
                 style={{height:"100px", width:"130px",  borderRadius:"20px",margin:"10px 0px 0px 20px "}} />
             </div>
             <div  style={{margin:"10px 60px 0px 20px "}}>

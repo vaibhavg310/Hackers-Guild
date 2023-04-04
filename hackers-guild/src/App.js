@@ -3,13 +3,16 @@ import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component';
 import DetailedCard from './components/detailed-card/detailed-card.component';
 import {Routes, Route, Outlet} from 'react-router-dom';
+import {DetailedRoute} from './routes/detailed-route/detailed-route.component';
+import { UploadSubmissionForm } from './components/upload-submission-form/upload-submission-form-component';
 
 function App() {
   return (
     <Routes>
       <Route path='/' element={<Navigation/>}>
         <Route path='/home' element={<Home/>}/>
-        <Route path='/upload' element={<DetailedCard/>}/>
+        <Route path='/submissions/*' element={<DetailedRoute/>}/>
+        <Route path='/upload' element={<UploadSubmissionForm/>}/>
       </Route>
     </Routes>
   );
