@@ -5,6 +5,7 @@ import DetailedCard from './components/detailed-card/detailed-card.component';
 import {Routes, Route, Outlet} from 'react-router-dom';
 import {DetailedRoute} from './routes/detailed-route/detailed-route.component';
 import { UploadSubmissionForm } from './components/upload-submission-form/upload-submission-form-component';
+import { EditFormRoute } from './routes/edit-form.routes';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path='/home' element={<Home/>}/>
         <Route path='/submissions/*' element={<DetailedRoute/>}/>
         <Route path='/upload' element={<UploadSubmissionForm/>}/>
+        <Route path='/edit-form/*' element={<EditFormRoute/>}/>
       </Route>
     </Routes>
   );

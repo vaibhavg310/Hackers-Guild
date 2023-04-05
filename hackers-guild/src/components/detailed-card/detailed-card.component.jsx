@@ -71,7 +71,7 @@ const DetailedCard = () => {
                     </div>
 
                     <div className="detailed-card-editlink">
-                        <button><FaEdit/> Edit</button>
+                        <button onClick={() => navigate(`/edit-form/${id}`)}><FaEdit/> Edit</button>
                         <button><AiFillDelete/> Delete</button>
                         
                     </div>
