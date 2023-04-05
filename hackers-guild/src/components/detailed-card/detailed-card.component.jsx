@@ -1,11 +1,15 @@
 import './detailed-card.styles.scss';
-import { AiOutlineStar, AiTwotoneCalendar ,AiFillGithub,AiFillDelete } from 'react-icons/ai'; 
+import { AiOutlineStar, AiTwotoneCalendar ,AiFillGithub,AiFillDelete,AiFillStar } from 'react-icons/ai'; 
 import {FiExternalLink } from 'react-icons/fi';
 import {FaEdit} from 'react-icons/fa';
-import {useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { selectSubmissionById } from '../../store/submission/submission.selector';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeSubmission, toggleFavourite } from '../../store/submission/submission.action';
+import { selectSubmissionList } from '../../store/submission/submission.selector';
+import { Modal } from '@mui/material'
 
 
 export const checkImage = (image) => {
@@ -20,12 +24,25 @@ export const checkImage = (image) => {
 const DetailedCard = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const submissionList = useSelector(selectSubmissionList);
 
     const {id} = useParams();
     const submission = useSelector(selectSubmissionById(id));
 
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
  
+     const toggleFavouriteSubmission = (submission) => {
+        console.log(submission);
+        dispatch(toggleFavourite(submission, submissionList));
+    }
+    
+
+
+    const favourite = submission.isFavourite;
 
 
     const checkHTTPS = (link) => {
@@ -60,8 +77,8 @@ const DetailedCard = () => {
                         </div>
 
                         <div className='detailed-card-tags'>
-                            <span className='detailed-card-star'>
-                                <AiOutlineStar/>
+                            <span className='detailed-card-star' onClick={() => toggleFavouriteSubmission(submission)} >
+                                { favourite ? <AiFillStar/> :<AiOutlineStar />}
                             </span>
                             <span className='line' />
                             <span className='detailed-card-time'>
@@ -72,7 +89,7 @@ const DetailedCard = () => {
 
                     <div className="detailed-card-editlink">
                         <button onClick={() => navigate(`/edit-form/${id}`)}><FaEdit/> Edit</button>
-                        <button><AiFillDelete/> Delete</button>
+                        <button className='icon-button' onClick={handleOpen}><AiFillDelete/> Delete</button>
                         
                     </div>
 
@@ -97,6 +114,30 @@ const DetailedCard = () => {
 
                     </div>
             </div>
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <div className='modal-container'>
+                    <div className='modal-content'>
+                        <h2 id="modal-title">Delete submission</h2>
+                        <p id="modal-description">
+                            The action is irreversible. Are you sure you want to delete this submission?
+                        </p>
+                    </div>
+
+                    <div className='modal-buttons'>
+                        <button className='modal-button' onClick={handleClose}>Cancel</button>
+                        <button className='modal-button' onClick={() => {
+                            dispatch(removeSubmission(submission, submissionList));
+                            navigate('/home');
+                        }}>Delete</button>
+                    </div>
+                </div>
+            </Modal>
 
         </div>
     )

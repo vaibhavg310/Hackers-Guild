@@ -37,3 +37,11 @@ export const updateSubmission = (submissionToUpdate, submissionList) => {
     newSubmissionList.push(submissionToUpdate);
     return createAction(SUBMISSION_ACTION_TYPES.SET_SUBMISSION_LIST, newSubmissionList)
 }
+
+export const toggleFavourite = (submission, submissionList) => {
+    const newSubmissionList = [...submissionList];
+    const submissionIndex = newSubmissionList.findIndex(sub => sub.id === submission.id);
+    console.log(submission.id, submissionIndex);
+    newSubmissionList[submissionIndex].isFavourite = !newSubmissionList[submissionIndex].isFavourite;
+    return createAction(SUBMISSION_ACTION_TYPES.SET_SUBMISSION_LIST, newSubmissionList)
+}
