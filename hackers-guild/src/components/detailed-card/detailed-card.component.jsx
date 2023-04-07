@@ -43,16 +43,6 @@ const DetailedCard = () => {
 
 
     const favourite = submission.isFavourite;
-
-
-    const checkHTTPS = (link) => {
-        if (link.includes('https://')) 
-            return link;
-        
-        else 
-            return `https://${link}`;
-        
-    }
     
     return (
         <div className = "body">
@@ -62,7 +52,7 @@ const DetailedCard = () => {
                     <div className='detailed-card-details'>
                         <div className = 'detailed-card-image-title'>
                                 <div className='detailed-card-image'>
-                                    <img src={checkImage(submission.coverImage)} alt='submission' />
+                                    <img src={submission.coverImage} alt='submission' />
                                     
                                 </div>
                                 <div className='detailed-card-title'>
@@ -107,7 +97,7 @@ const DetailedCard = () => {
                     <div>
                             <AiTwotoneCalendar /> 24 Feb 2023 - 24 March 2023
                     </div>
-                    <a href={checkHTTPS(submission.githubSubmissionLink)}><button ><AiFillGithub/> Github</button></a>
+                    <a href={submission.githubSubmissionLink}><button ><AiFillGithub/> Github</button></a>
                     <button><FiExternalLink/> Other Link</button>
 
                         

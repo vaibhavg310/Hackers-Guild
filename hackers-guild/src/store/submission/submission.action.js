@@ -9,6 +9,7 @@ const getTime = () => {
 
 export const addSubmission = (submission, submissionList) => {
     const newSubmissionList = [...submissionList];
+    console.log(newSubmissionList);
     const newSubmission = {
     id: newSubmissionList ? newSubmissionList[newSubmissionList.length - 1].id + 1 : 1,
     githubSubmissionLink: submission.githubLink,
@@ -23,6 +24,7 @@ export const addSubmission = (submission, submissionList) => {
     summary: submission.summary,
     submissionTime: getTime(),
     };
+    
     newSubmissionList.push(newSubmission);
     return createAction(SUBMISSION_ACTION_TYPES.SET_SUBMISSION_LIST, newSubmissionList)
 }
@@ -44,4 +46,23 @@ export const toggleFavourite = (submission, submissionList) => {
     console.log(submission.id, submissionIndex);
     newSubmissionList[submissionIndex].isFavourite = !newSubmissionList[submissionIndex].isFavourite;
     return createAction(SUBMISSION_ACTION_TYPES.SET_SUBMISSION_LIST, newSubmissionList)
+}
+
+export const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        // Check if file is of type File
+        if (!(file instanceof File)) {
+            resolve(file);
+        }
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        };
+
+        fileReader.onerror = (error) => {
+            reject(error);
+        };
+    });
 }

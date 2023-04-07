@@ -2,7 +2,7 @@ import "../upload-submission-form/upload-submission-form.styles.scss"
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSubmission } from "../../store/submission/submission.action";
+import { updateSubmission, convertBase64 } from "../../store/submission/submission.action";
 import { selectSubmissionById } from "../../store/submission/submission.selector";
 
 import { selectSubmissionList } from "../../store/submission/submission.selector";
@@ -68,9 +68,15 @@ export const EditSubmissionForm = () => {
             ...submission,
             ...formValues,
         };
-         updateSubmissionToList(newSubmission);
-
-        navigate(`/submissions/${id}`);
+        convertBase64(newSubmission.coverImage).then((base64image) => {
+            newSubmission.coverImage = base64image;
+            updateSubmissionToList(newSubmission);
+            alert("Submission updated successfully");
+            navigate(`/submissions/${id}`);
+        }).catch((err) => {
+            alert("Error while updating submission");
+            console.log(err);
+        });
 
         };
         

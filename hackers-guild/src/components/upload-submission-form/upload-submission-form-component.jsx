@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./upload-submission-form.styles.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addSubmission } from "../../store/submission/submission.action";
+import { addSubmission, convertBase64 } from "../../store/submission/submission.action";
 import { selectSubmissionList } from "../../store/submission/submission.selector";
 
 export const UploadSubmissionForm = () => {
@@ -54,7 +54,15 @@ export const UploadSubmissionForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    addSubmissionToList(formValues);
+    convertBase64(formValues.coverImage).then((base64image) => {
+      formValues.coverImage = base64image;
+      addSubmissionToList(formValues);
+      setFormValues(initialValue);
+      alert("Submission added successfully");
+    }).catch((error) => {
+      alert("Error while adding submission");
+      console.log(error);
+    })
     // console.log(formValues);
   };
 

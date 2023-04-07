@@ -9,10 +9,10 @@ import {checkImage} from '../detailed-card/detailed-card.component';
 
 export const SubmissionCard = ({submission}) => {
 
-  const {title, description, coverImage, hackathonStartDate} = submission;
+  const {title, description, coverImage, submissionTime} = submission;
 
-  const timeSinceUpload = (hackathonStartDate) => {
-    const uploadTime = new Date(hackathonStartDate);
+  const timeSinceUpload = (submissionTime) => {
+    const uploadTime = new Date(submissionTime);
     const currentTime = new Date();
     const timeDiff = currentTime - uploadTime;
   
@@ -50,14 +50,14 @@ export const SubmissionCard = ({submission}) => {
    
   const navigate = useNavigate();
 
-  const time = timeSinceUpload(hackathonStartDate);
+  const time = timeSinceUpload(submissionTime);
   return (
     <Card sx={{ maxWidth:"400px", padding:"10px", minWidth:"400px"  }}>
       <CardActionArea onClick={() =>navigate(`/submissions/${submission.id}`) }>
         
         <div style={{display: 'flex', alignItems: 'center',justifyContent:'space-between'}}>
             <div>
-                <img src={checkImage(coverImage)} alt="InterviewMe"
+                <img src={coverImage} alt="InterviewMe"
                 style={{height:"100px", width:"130px",  borderRadius:"20px",margin:"10px 0px 0px 20px "}} />
             </div>
             <div  style={{margin:"10px 60px 0px 20px "}}>

@@ -62,12 +62,17 @@ export const SUBMISSION_INITIAL_STATE = {
 
 };
 
+localStorage.getItem("submissionList") && (SUBMISSION_INITIAL_STATE.submissionList = JSON.parse(localStorage.getItem("submissionList")));
+
+
 export const submissionReducer = (state = SUBMISSION_INITIAL_STATE, action ={}) => {
-
+    
     const {type, payload} = action;
-
+    
     switch (type) {
         case SUBMISSION_ACTION_TYPES.SET_SUBMISSION_LIST:
+            
+            localStorage.setItem("submissionList", JSON.stringify(payload));
             return {
                 ...state,
                 submissionList: payload,
