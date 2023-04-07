@@ -11,7 +11,7 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Navigation/>}>
-        <Route path='/home' element={<Home/>}/>
+        <Route index  element={<Home/>}/>
         <Route path='/submissions/*' element={<DetailedRoute/>}/>
         <Route path='/upload' element={<UploadSubmissionForm/>}/>
         <Route path='/edit-form/*' element={<EditFormRoute/>}/>

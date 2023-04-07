@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Outlet, useNavigate} from 'react-router-dom';
-import { ReactComponent as PlanetLogo } from '../../assets/planet.svg';
+import { ReactComponent as LOGO } from '../../assets/LOGO.svg';
 
 import './navigation.styles.scss';
 const navItems = ['Home', 'About', 'Contact'];
@@ -11,7 +11,7 @@ const Navigation = () => {
     return (
       <>
         <div className='navbar-container' >
-            <PlanetLogo className='planet-logo' onClick={() => navigate("/home")} />
+            <LOGO className='planet-logo' onClick={() => navigate("/")} />
         </div>
         <Outlet/>
       </>

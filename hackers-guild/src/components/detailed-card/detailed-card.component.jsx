@@ -123,7 +123,7 @@ const DetailedCard = () => {
                         <button className='modal-button' onClick={handleClose}>Cancel</button>
                         <button className='modal-button' onClick={() => {
                             dispatch(removeSubmission(submission, submissionList));
-                            navigate('/home');
+                            navigate('/');
                         }}>Delete</button>
                     </div>
                 </div>
